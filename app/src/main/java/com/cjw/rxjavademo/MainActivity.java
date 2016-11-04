@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.test_bt) {
-            OperatorCombination operator = new OperatorCombination();
-            operator.switchOnNext();
+            OperatorCreate operator = new OperatorCreate();
+            operator.observerOn();
         }
     }
 
@@ -403,7 +403,7 @@ public class MainActivity extends AppCompatActivity {
                     .last(new Func1<Integer, Boolean>() {
                         @Override
                         public Boolean call(Integer integer) {
-                            return integer % 2 == 1;
+                            return integer % 2 != 0;
                         }
                     }).subscribe(new Action1<Integer>() {
                 @Override
@@ -423,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
                     .first(new Func1<Integer, Boolean>() {
                         @Override
                         public Boolean call(Integer integer) {
-                            return integer % 2 == 1;
+                            return integer % 2 != 0;
                         }
                     }).subscribe(new Action1<Integer>() {
                 @Override
@@ -736,6 +736,48 @@ public class MainActivity extends AppCompatActivity {
      * 创建类操作符
      */
     class OperatorCreate {
+
+        public void observerOn() {
+            // subscribeOn
+            // 指定subscribe运行的线程
+            // subscribe
+
+            Observable.just("s1", "s2")
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .map(new Func1<String, String>() {
+                        @Override
+                        public String call(String s) {
+                            long currentThreadID = Thread.currentThread().getId();
+                            if (currentThreadID == getMainLooper().getThread().getId()) {
+                                Log.d(TAG, "in map : run on MainThread");
+                            } else {
+                                Log.d(TAG, "in map : not run on MainThread, current Thread id : " + currentThreadID);
+                            }
+                            return "new " + s;
+                        }
+                    })
+                    .observeOn(Schedulers.newThread())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String s) {
+                            Log.d(TAG, "call: " + s);
+
+                            long currentThreadID = Thread.currentThread().getId();
+                            if (currentThreadID == getMainLooper().getThread().getId()) {
+                                Log.d(TAG, "in subscribe : run on MainThread");
+                            } else {
+                                Log.d(TAG, "in subscribe : not run on MainThread, current Thread id : " + currentThreadID);
+                            }
+                        }
+                    });
+
+            // in map : run on MainThread
+            // in map : run on MainThread
+            // call: new s1
+            // in subscribe : not run on MainThread, current Thread id : 176
+            // call: new s2
+            // in subscribe : not run on MainThread, current Thread id : 176
+        }
 
         public void delay() {
             // delay
