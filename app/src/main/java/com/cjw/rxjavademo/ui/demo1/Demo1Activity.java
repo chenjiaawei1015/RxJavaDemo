@@ -6,14 +6,14 @@ import android.os.Bundle;
 
 import com.cjw.rxjavademo.R;
 import com.cjw.rxjavademo.ui.base.AppBarActivity;
-import com.cjw.rxjavademo.widget.logRecyclerView.LogRecyclerView;
+import com.cjw.rxjavademo.widget.logRecyclerView.CommonTextRecyclerView;
 
 import java.util.Observable;
 import java.util.Observer;
 
 public class Demo1Activity extends AppBarActivity {
 
-    private LogRecyclerView mLogDemo1Rv;
+    private CommonTextRecyclerView mLogRv;
 
     public static void navigateTo(Context context) {
         Intent intent = new Intent(context, Demo1Activity.class);
@@ -31,7 +31,7 @@ public class Demo1Activity extends AppBarActivity {
     @Override
     protected void findWidget() {
         super.findWidget();
-        mLogDemo1Rv = (LogRecyclerView) findViewById(R.id.log_demo1_rv);
+        mLogRv = (CommonTextRecyclerView) findViewById(R.id.log_rv);
     }
 
     @Override
@@ -50,6 +50,9 @@ public class Demo1Activity extends AppBarActivity {
         observable.updateData(1);
         observable.updateData(2);
         observable.updateData(3);
+
+        // 最后显示的结果为:
+        // 显示了3条数据
     }
 
     /**
@@ -77,7 +80,7 @@ public class Demo1Activity extends AppBarActivity {
         // 有被观察者发生变化,自动调用对应观察者的update方法
         @Override
         public void update(Observable o, Object arg) {
-            mLogDemo1Rv.addLog("currentData : " + ((MyObservable) o).currentData);
+            mLogRv.addText("currentData : " + ((MyObservable) o).currentData);
         }
     }
 }

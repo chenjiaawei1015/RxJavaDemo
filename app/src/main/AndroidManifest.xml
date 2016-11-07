@@ -17,6 +17,8 @@
         </activity>
         <activity android:name=".ui.demo1.Demo1Activity">
         </activity>
+        <activity android:name=".ui.demo2.Demo2Activity">
+        </activity>
     </application>
 
 </manifest>

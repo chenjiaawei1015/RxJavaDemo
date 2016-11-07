@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.cjw.rxjavademo.R;
 import com.cjw.rxjavademo.ui.base.AppBarActivity;
 import com.cjw.rxjavademo.ui.demo1.Demo1Activity;
+import com.cjw.rxjavademo.ui.demo2.Demo2Activity;
 import com.cjw.rxjavademo.ui.main.adapter.MainAdapter;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 
@@ -14,8 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppBarActivity implements MainAdapter.OnItemClickListener {
-
-    private static final String TAG = "MainActivity";
 
     private UltimateRecyclerView mMainRv;
 
@@ -32,6 +31,10 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
         switch (position) {
             case 0: // 简单的观察者设计模式
                 Demo1Activity.navigateTo(mContext);
+                break;
+
+            case 1: // 创建类操作符
+                Demo2Activity.navigateTo(mContext);
                 break;
 
             default:
@@ -56,7 +59,7 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
         mMainRv.addItemDividerDecoration(mContext);
 
         List<String> titleList = new ArrayList<>();
-        Collections.addAll(titleList, "简单的观察者设计模式");
+        Collections.addAll(titleList, "简单的观察者设计模式", "创建操作符");
         MainAdapter adapter = new MainAdapter(mContext, titleList);
         adapter.setItemClickListener(this);
         mMainRv.setAdapter(adapter);
