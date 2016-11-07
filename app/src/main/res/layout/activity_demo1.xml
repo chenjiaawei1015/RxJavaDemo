@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/activity_demo1"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.cjw.rxjavademo.ui.main.MainActivity">
+    tools:context="com.cjw.rxjavademo.ui.demo1.Demo1Activity">
 
     <include layout="@layout/common_app_bar"/>
 
-    <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
-        android:id="@+id/main_rv"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <com.cjw.rxjavademo.widget.logRecyclerView.LogRecyclerView
+        android:id="@+id/log_demo1_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.cjw.rxjavademo.ui.main.MainActivity"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
