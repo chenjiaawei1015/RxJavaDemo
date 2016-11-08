@@ -3,6 +3,7 @@ package com.cjw.rxjavademo.ui.demo2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.cjw.rxjavademo.R;
 import com.cjw.rxjavademo.ui.base.AppBarActivity;
@@ -16,8 +17,12 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Action1;
+import rx.functions.Func0;
 
 public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerViewAdapter.OnTextItemClickListener {
+
+    private static final String TAG = "Demo2Activity";
 
     private CommonTextRecyclerView mOperatorRv;
     private CommonTextRecyclerView mLogRv;
@@ -50,7 +55,7 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("创建操作符");
 
         mOperatorList = new ArrayList<>();
-        Collections.addAll(mOperatorList, "create");
+        Collections.addAll(mOperatorList, "create", "defer");
 
         mOperatorRv.addNewTextList(mOperatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -60,8 +65,12 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
     public void onTextItemClick(UltimateRecyclerView rv, int position) {
         mLogRv.clearTextList();
         switch (position) {
-            case 0:
+            case 0: // create
                 create();
+                break;
+
+            case 1: // defer
+                defer();
                 break;
 
             default:
@@ -69,13 +78,70 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         }
     }
 
+    private void defer() {
+        // defer
+        // 参考 defer.png
+
+        // 只有当有Subscriber来订阅的时候才会创建一个新的Observable对象,也就是说每次订阅都会得到一个刚创建的最新的Observable对象
+        // 这可以确保Observable对象里的数据是最新的
+
+        // 而just则没有创建新的Observable对象
+        Observable<String> defer = Observable.defer(new Func0<Observable<String>>() {
+            @Override
+            public Observable<String> call() {
+                Object obj = new Object();
+                return Observable.just("defer : hashcode = " + obj.hashCode());
+            }
+        });
+
+        Observable<String> create = Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                Object obj = new Object();
+                subscriber.onNext("create : hashcode = " + obj.hashCode());
+            }
+        });
+
+        Observable<String> just = Observable.just("just : hashcode = " + new Object().hashCode());
+
+        Action1<String> act1 = new Action1<String>() {
+            @Override
+            public void call(String s) {
+                mLogRv.addText(s);
+                Log.d(TAG, "call: " + s);
+            }
+        };
+
+        defer.subscribe(act1);
+        defer.subscribe(act1);
+        defer.subscribe(act1);
+
+        create.subscribe(act1);
+        create.subscribe(act1);
+        create.subscribe(act1);
+
+        just.subscribe(act1);
+        just.subscribe(act1);
+        just.subscribe(act1);
+
+        // 输出结果:
+        // call: defer : hashcode = 49629951
+        // call: defer : hashcode = 260362444
+        // call: defer : hashcode = 217267989
+        // call: create : hashcode = 553514
+        // call: create : hashcode = 215848987
+        // call: create : hashcode = 244592056
+        // call: just : hashcode = 123556382
+        // call: just : hashcode = 123556382
+        // call: just : hashcode = 123556382
+    }
+
     private void create() {
-        // create 操作符
+        // create
+        // 参考 create.png
 
         // create       创建被观察者
-        // subscribe    订阅一个观察者
-        
-
+        // subscribe    观察者订阅被观察者
         Observable.create(new Observable.OnSubscribe<Integer>() {
             @Override
             public void call(Subscriber<? super Integer> observer) {

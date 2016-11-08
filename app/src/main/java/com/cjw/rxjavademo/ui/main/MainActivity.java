@@ -970,43 +970,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 102
     //        }
     //
-    //        public void defer() {
-    //            // defer
-    //            // 只有当有Subscriber来订阅的时候才会创建一个新的Observable对象,也就是说每次订阅都会得到一个刚创建的最新的Observable对象
-    //            // 这可以确保Observable对象里的数据是最新的,而just则没有创建新的Observable对象
-    //
-    //            Action1<String> act1 = new Action1<String>() {
-    //                @Override
-    //                public void call(String s) {
-    //                    Log.d(TAG, s);
-    //                }
-    //            };
-    //
-    //            Observable<String> defer = Observable.defer(new Func0<Observable<String>>() {
-    //                @Override
-    //                public Observable<String> call() {
-    //                    Object obj = new Object();
-    //                    return Observable.just("defer : hashcode = " + obj.hashCode());
-    //                }
-    //            });
-    //
-    //            defer.subscribe(act1);
-    //            defer.subscribe(act1);
-    //            defer.subscribe(act1);
-    //
-    //            Observable<String> just = Observable.just("just : hashcode = " + new Object().hashCode());
-    //            just.subscribe(act1);
-    //            just.subscribe(act1);
-    //            just.subscribe(act1);
-    //
-    //            // defer : hashcode = 1390750332
-    //            // defer : hashcode = 1390753040
-    //            // defer : hashcode = 1390753396
-    //            // just : hashcode = 1390753808
-    //            // just : hashcode = 1390753808
-    //            // just : hashcode = 1390753808
-    //        }
-    //
     //        public void from() {
     //            // from
     //            // 用来将某个对象转化为Observable对象,并且依次将其内容发射出去,from的接收值可以是集合或者数组,
@@ -1037,39 +1000,4 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //
     //            // call: 2
     //        }
-    //
-    //        public void create() {
-    //            Observable.create(new Observable.OnSubscribe<Integer>() {
-    //                @Override
-    //                public void call(Subscriber<? super Integer> observer) {
-    //                    try {
-    //                        // 指示此订阅者是否已取消订阅其订阅列表。
-    //                        if (!observer.isUnsubscribed()) {
-    //                            for (int i = 1; i < 5; i++) {
-    //                                observer.onNext(i);
-    //                            }
-    //                            observer.onCompleted();
-    //                        }
-    //                    } catch (Exception e) {
-    //                        observer.onError(e);
-    //                    }
-    //                }
-    //            }).subscribe(new Subscriber<Integer>() {
-    //                @Override
-    //                public void onNext(Integer item) {
-    //                    System.out.println("Next: " + item);
-    //                }
-    //
-    //                @Override
-    //                public void onError(Throwable error) {
-    //                    System.err.println("Error: " + error.getMessage());
-    //                }
-    //
-    //                @Override
-    //                public void onCompleted() {
-    //                    System.out.println("Sequence complete.");
-    //                }
-    //            });
-    //        }
-    //    }
 }
