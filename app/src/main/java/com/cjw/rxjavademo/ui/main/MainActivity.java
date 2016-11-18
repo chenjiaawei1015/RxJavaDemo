@@ -863,55 +863,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // onError: 错误
     //        }
     //
-    //        public void never() {
-    //            // never
-    //            // 创建一个Observable不发射任何数据,也不给订阅它的Observer发出任何通知
-    //
-    //            Observable.never().subscribe(new Subscriber<Object>() {
-    //                @Override
-    //                public void onCompleted() {
-    //                    Log.d(TAG, "onCompleted");
-    //                }
-    //
-    //                @Override
-    //                public void onError(Throwable e) {
-    //                    Log.d(TAG, "onError");
-    //                }
-    //
-    //                @Override
-    //                public void onNext(Object o) {
-    //                    Log.d(TAG, "onNext");
-    //                }
-    //            });
-    //
-    //            // 没有输出任何东西
-    //        }
-    //
-    //        public void empty() {
-    //            // empty
-    //            // 创建一个Observable不发射任何数据,而是立即调用onCompleted方法终止
-    //
-    //            Observable<Object> observable = Observable.empty();
-    //            observable.subscribe(new Subscriber<Object>() {
-    //                @Override
-    //                public void onCompleted() {
-    //                    Log.d(TAG, "onCompleted");
-    //                }
-    //
-    //                @Override
-    //                public void onError(Throwable e) {
-    //                    // do nothing
-    //                }
-    //
-    //                @Override
-    //                public void onNext(Object o) {
-    //                    // do nothing
-    //                }
-    //            });
-    //
-    //            // onCompleted
-    //        }
-    //
     //        public void timer() {
     //            // timer
     //            // 会在指定时间后发射,注意其也是运行在computation Scheduler

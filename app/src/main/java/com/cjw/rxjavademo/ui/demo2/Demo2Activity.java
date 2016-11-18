@@ -55,7 +55,7 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("创建操作符");
 
         mOperatorList = new ArrayList<>();
-        Collections.addAll(mOperatorList, "create", "defer", "never");
+        Collections.addAll(mOperatorList, "create", "defer", "never", "empty", "error");
 
         mOperatorRv.addNewTextList(mOperatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -68,13 +68,17 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
             case 0:
                 create();
                 break;
-
             case 1:
                 defer();
                 break;
-
             case 2:
                 never();
+                break;
+            case 3:
+                empty();
+                break;
+            case 4:
+                error();
                 break;
 
             default:
@@ -82,8 +86,58 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         }
     }
 
+    private void error() {
+        // 返回一个Observable,当有Observer订阅它时直接调用Observer的onError方法终止
+
+        Observable.error(new Exception("my Exception")).subscribe(new Subscriber<Object>() {
+            @Override
+            public void onCompleted() {
+                mLogRv.addText("onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mLogRv.addText("onError : " + e.getMessage());
+            }
+
+            @Override
+            public void onNext(Object o) {
+                mLogRv.addText("onNext");
+            }
+        });
+
+        // 输出结果:
+        // onError : my Exception
+    }
+
+    private void empty() {
+        // 参考empty.png
+
+        // 创建一个Observable不发射任何数据,而是立即调用onCompleted方法终止
+
+        Observable<Object> observable = Observable.empty();
+        observable.subscribe(new Subscriber<Object>() {
+            @Override
+            public void onCompleted() {
+                mLogRv.addText("onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mLogRv.addText("onError : " + e.getMessage());
+            }
+
+            @Override
+            public void onNext(Object o) {
+                mLogRv.addText("onNext");
+            }
+        });
+
+        // 输出结果:
+        // onCompleted
+    }
+
     private void never() {
-        // never
         // 参考never.png
 
         // 创建一个Observable不发射任何数据,也不给订阅它的Observer发出任何通知
@@ -91,17 +145,17 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         Observable.never().subscribe(new Subscriber<Object>() {
             @Override
             public void onCompleted() {
-                Log.d(TAG, "onCompleted");
+                mLogRv.addText("onCompleted");
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.d(TAG, "onError : " + e.getMessage());
+                mLogRv.addText("onError : " + e.getMessage());
             }
 
             @Override
             public void onNext(Object o) {
-                Log.d(TAG, "onNext");
+                mLogRv.addText("onNext");
             }
         });
 
@@ -109,7 +163,6 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void defer() {
-        // defer
         // 参考 defer.png
 
         // 只有当有Subscriber来订阅的时候才会创建一个新的Observable对象,也就是说每次订阅都会得到一个刚创建的最新的Observable对象
@@ -167,7 +220,6 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void create() {
-        // create
         // 参考 create.png
 
         // create       创建被观察者
