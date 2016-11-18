@@ -41,8 +41,8 @@ public class CommonTextRecyclerViewAdapter extends UltimateViewAdapter<CommonTex
     }
 
     public void clearTextList() {
-        mTextList.clear();
         int beforeLogSize = mTextList.size();
+        mTextList.clear();
         if (beforeLogSize != 0) {
             notifyItemRangeRemoved(0, beforeLogSize);
         }
