@@ -55,7 +55,7 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("创建操作符");
 
         mOperatorList = new ArrayList<>();
-        Collections.addAll(mOperatorList, "create", "defer");
+        Collections.addAll(mOperatorList, "create", "defer", "never");
 
         mOperatorRv.addNewTextList(mOperatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -65,17 +65,47 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
     public void onTextItemClick(UltimateRecyclerView rv, int position) {
         mLogRv.clearTextList();
         switch (position) {
-            case 0: // create
+            case 0:
                 create();
                 break;
 
-            case 1: // defer
+            case 1:
                 defer();
+                break;
+
+            case 2:
+                never();
                 break;
 
             default:
                 break;
         }
+    }
+
+    private void never() {
+        // never
+        // 参考never.png
+
+        // 创建一个Observable不发射任何数据,也不给订阅它的Observer发出任何通知
+
+        Observable.never().subscribe(new Subscriber<Object>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG, "onError : " + e.getMessage());
+            }
+
+            @Override
+            public void onNext(Object o) {
+                Log.d(TAG, "onNext");
+            }
+        });
+
+        // 不会发送任何内容
     }
 
     private void defer() {
