@@ -61,7 +61,7 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
 
         mOperatorList = new ArrayList<>();
         Collections.addAll(mOperatorList, "create", "defer", "never", "empty", "error", "from");
-        Collections.addAll(mOperatorList, "interval");
+        Collections.addAll(mOperatorList, "interval", "just");
 
         mOperatorRv.addNewTextList(mOperatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -92,10 +92,61 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
             case 6:
                 interval();
                 break;
+            case 7:
+                just();
+                break;
 
             default:
                 break;
         }
+    }
+
+    private void just() {
+        // 参考just.png
+
+        Observable.just(1, 2, 3)
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onNext(Integer item) {
+                        mLogRv.addText("next: " + item);
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+                        mLogRv.addText("error: " + error.getMessage());
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        mLogRv.addText("completed");
+                    }
+                });
+
+        // 输出结果:
+        // next: 1
+        // next: 2
+        // next: 3
+        // completed
+
+
+        // 与from的区别:
+        List<String> dataList = new ArrayList<>();
+        Collections.addAll(dataList, "str1", "str2", "str3");
+        Observable.from(dataList)
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        // 获取的是每个字符串
+                    }
+                });
+
+        Observable.just(dataList)
+                .subscribe(new Action1<List<String>>() {
+                    @Override
+                    public void call(List<String> strings) {
+                        // 获取的时字符串集合
+                    }
+                });
     }
 
     private int mTestCount;
