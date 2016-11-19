@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.cjw.rxjavademo.R;
 import com.cjw.rxjavademo.ui.base.AppBarActivity;
+import com.cjw.rxjavademo.utils.DateUtils;
 import com.cjw.rxjavademo.widget.logRecyclerView.CommonTextRecyclerView;
 import com.cjw.rxjavademo.widget.logRecyclerView.adapter.CommonTextRecyclerViewAdapter;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
@@ -14,11 +15,15 @@ import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func0;
+import rx.functions.Func1;
 
 public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerViewAdapter.OnTextItemClickListener {
 
@@ -55,7 +60,8 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("创建操作符");
 
         mOperatorList = new ArrayList<>();
-        Collections.addAll(mOperatorList, "create", "defer", "never", "empty", "error");
+        Collections.addAll(mOperatorList, "create", "defer", "never", "empty", "error", "from");
+        Collections.addAll(mOperatorList, "interval");
 
         mOperatorRv.addNewTextList(mOperatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -80,13 +86,104 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
             case 4:
                 error();
                 break;
+            case 5:
+                from();
+                break;
+            case 6:
+                interval();
+                break;
 
             default:
                 break;
         }
     }
 
+    private int mTestCount;
+
+    private void interval() {
+        // 参考interval.png
+        // 所创建的Observable对象会从0开始,每隔固定的时间发射一个数字
+
+        mTestCount = 0;
+        mLogRv.addText("Start Time : " + DateUtils.getSimpleHourMinuteSecond(System.currentTimeMillis()));
+        // 先等待2秒,后每1秒调用一次,直到结束为止
+        Observable.interval(2, 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .flatMap(new Func1<Long, Observable<?>>() {
+                    @Override
+                    public Observable<?> call(Long num) {
+                        mTestCount++;
+                        if (mTestCount >= 5) {
+                            return Observable.empty();
+                        } else {
+                            return Observable.just(num);
+                        }
+                    }
+                }).subscribe(new Subscriber<Object>() {
+            @Override
+            public void onCompleted() {
+                mLogRv.addText("completed : " + DateUtils.getSimpleHourMinuteSecond(System.currentTimeMillis()));
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mLogRv.addText("error : " + DateUtils.getSimpleHourMinuteSecond(System.currentTimeMillis()));
+            }
+
+            @Override
+            public void onNext(Object o) {
+                mLogRv.addText("next : " + DateUtils.getSimpleHourMinuteSecond(System.currentTimeMillis()));
+            }
+        });
+
+        // 输出结果:
+        // Start Time : 14:43:37
+        // next : 14:43:39
+        // next : 14:43:40
+        // next : 14:43:41
+        // next : 14:43:42
+    }
+
+    private void from() {
+        // 参考from.png
+
+        // 用来将某个对象转化为Observable对象,并且依次将其内容发射出去,from的接收值可以是集合或者数组
+
+        Integer[] items = {0, 1, 2, 3, 4, 5};
+        Observable<Integer> myObservable = Observable.from(items);
+        myObservable.subscribe(
+                new Action1<Integer>() {
+                    @Override
+                    public void call(Integer item) {
+                        mLogRv.addText(String.valueOf(item));
+                    }
+                },
+                new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable error) {
+                        mLogRv.addText("error : " + error.getMessage());
+                    }
+                },
+                new Action0() {
+                    @Override
+                    public void call() {
+                        mLogRv.addText("complete");
+                    }
+                }
+        );
+
+        // 输出结果:
+        // 0
+        // 1
+        // 2
+        // 3
+        // 4
+        // 5
+        // complete
+    }
+
     private void error() {
+        // 参考pic_throw.png
+
         // 返回一个Observable,当有Observer订阅它时直接调用Observer的onError方法终止
 
         Observable.error(new Exception("my Exception")).subscribe(new Subscriber<Object>() {

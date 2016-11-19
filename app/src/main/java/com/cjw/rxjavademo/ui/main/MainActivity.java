@@ -839,30 +839,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 1
     //        }
     //
-    //        public void error() {
-    //            // error
-    //            // 返回一个Observable,当有Observer订阅它时直接调用Observer的onError方法终止
-    //
-    //            Observable.error(new Throwable("错误")).subscribe(new Subscriber<Object>() {
-    //                @Override
-    //                public void onCompleted() {
-    //
-    //                }
-    //
-    //                @Override
-    //                public void onError(Throwable e) {
-    //                    Log.d(TAG, "onError: " + e.getMessage());
-    //                }
-    //
-    //                @Override
-    //                public void onNext(Object o) {
-    //
-    //                }
-    //            });
-    //
-    //            // onError: 错误
-    //        }
-    //
     //        public void timer() {
     //            // timer
     //            // 会在指定时间后发射,注意其也是运行在computation Scheduler
@@ -884,27 +860,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 0
     //        }
     //
-    //        public void interval() {
-    //            // interval
-    //            // 所创建的Observable对象会从0开始,每隔固定的时间发射一个数字
-    //            // 需要注意的是这个对象是运行在computation Scheduler,所以要更新UI需要在主线程中进行订阅
-    //
-    //            Observable.interval(1, TimeUnit.SECONDS)
-    //                    .observeOn(AndroidSchedulers.mainThread())
-    //                    .subscribe(new Action1<Long>() {
-    //                        @Override
-    //                        public void call(Long aLong) {
-    //                            Log.d(TAG, "call: " + aLong);
-    //                        }
-    //                    });
-    //
-    //            // 这个将一直打印,aLong从0开始
-    //            // call: 0
-    //            // call: 1
-    //            // call: 2
-    //            // call: 3
-    //        }
-    //
     //        public void range() {
     //            // range
     //            // 根据输入的初始值【initial】和数量【number】发射number次,大于等于initial的值
@@ -919,24 +874,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 100
     //            // call: 101
     //            // call: 102
-    //        }
-    //
-    //        public void from() {
-    //            // from
-    //            // 用来将某个对象转化为Observable对象,并且依次将其内容发射出去,from的接收值可以是集合或者数组,
-    //            // 这个类似于just,但是just会将这个对象整个发射出去.比如说一个含有3个元素的集合,from会将集合分成3次发射,而使用just会发射一次来将整个的数组发射出去
-    //
-    //            List<String> dataList = new ArrayList<>();
-    //            Collections.addAll(dataList, "s1", "s2");
-    //            Observable.from(dataList).subscribe(new Action1<String>() {
-    //                @Override
-    //                public void call(String s) {
-    //                    Log.d(TAG, "call: " + s);
-    //                }
-    //            });
-    //
-    //            // call: s1
-    //            // call: s2
     //        }
     //
     //        public void just() {
