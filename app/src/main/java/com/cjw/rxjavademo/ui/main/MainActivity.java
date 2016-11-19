@@ -875,17 +875,4 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 101
     //            // call: 102
     //        }
-    //
-    //        public void just() {
-    //            List<String> dataList = new ArrayList<>();
-    //            Collections.addAll(dataList, "s1", "s2");
-    //            Observable.just(dataList).subscribe(new Action1<List<String>>() {
-    //                @Override
-    //                public void call(List<String> strings) {
-    //                    Log.d(TAG, "call: " + strings.size());
-    //                }
-    //            });
-    //
-    //            // call: 2
-    //        }
 }

@@ -60,8 +60,8 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("创建操作符");
 
         mOperatorList = new ArrayList<>();
-        Collections.addAll(mOperatorList, "create", "defer", "never", "empty", "error", "from");
-        Collections.addAll(mOperatorList, "interval", "just");
+        Collections.addAll(mOperatorList, "create", "defer", "never", "empty", "error");
+        Collections.addAll(mOperatorList, "from", "interval", "just", "range");
 
         mOperatorRv.addNewTextList(mOperatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -95,10 +95,32 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
             case 7:
                 just();
                 break;
+            case 8:
+                range();
+                break;
 
             default:
                 break;
         }
+    }
+
+    private void range() {
+        // 参考range.png
+
+        // 根据输入的初始值和指定数量次,发射大于等于初始值的值
+
+        Observable.range(10, 3, AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        mLogRv.addText(String.valueOf(integer));
+                    }
+                });
+
+        // 输出结果:
+        // 10
+        // 11
+        // 12
     }
 
     private void just() {
@@ -128,8 +150,7 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         // next: 3
         // completed
 
-
-        // 与from的区别:
+        // just与from的区别:
         List<String> dataList = new ArrayList<>();
         Collections.addAll(dataList, "str1", "str2", "str3");
         Observable.from(dataList)
