@@ -24,6 +24,7 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func0;
 import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerViewAdapter.OnTextItemClickListener {
 
@@ -62,6 +63,7 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         mOperatorList = new ArrayList<>();
         Collections.addAll(mOperatorList, "create", "defer", "never", "empty", "error");
         Collections.addAll(mOperatorList, "from", "interval", "just", "range", "repeat");
+        Collections.addAll(mOperatorList, "timer");
 
         mOperatorRv.addNewTextList(mOperatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -101,10 +103,34 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
             case 9:
                 repeat();
                 break;
+            case 10:
+                timer();
+                break;
 
             default:
                 break;
         }
+    }
+
+    private void timer() {
+        // 参考timer.png
+
+        // 会在指定时间后发射一个Long类型数字
+
+        Observable.timer(1, TimeUnit.SECONDS, Schedulers.io())
+                .repeat(3)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        mLogRv.addText(DateUtils.getSimpleHourMinuteSecondMillis(System.currentTimeMillis()));
+                    }
+                });
+
+        // 输出结果
+        // 18:43:20
+        // 18:43:21
+        // 18:43:22
     }
 
     private void repeat() {

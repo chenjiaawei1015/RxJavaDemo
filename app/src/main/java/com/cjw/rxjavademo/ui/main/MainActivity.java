@@ -823,27 +823,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 1
     //        }
     //
-    //        public void timer() {
-    //            // timer
-    //            // 会在指定时间后发射,注意其也是运行在computation Scheduler
-    //
-    //            Log.d(TAG, "start: " + System.currentTimeMillis());
-    //            Observable.timer(2, TimeUnit.SECONDS)
-    //                    .observeOn(AndroidSchedulers.mainThread())
-    //                    .subscribe(new Action1<Long>() {
-    //                        @Override
-    //                        public void call(Long aLong) {
-    //                            Log.d(TAG, "stop: " + System.currentTimeMillis());
-    //                            Log.d(TAG, "call: " + aLong);
-    //                        }
-    //                    });
-    //
-    //            // 相隔2秒
-    //            // start: 1476412128573
-    //            // stop: 1476412130573
-    //            // call: 0
-    //        }
-    //
     //        public void range() {
     //            // range
     //            // 根据输入的初始值【initial】和数量【number】发射number次,大于等于initial的值
