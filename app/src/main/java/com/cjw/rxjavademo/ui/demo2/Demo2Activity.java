@@ -61,7 +61,7 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
 
         mOperatorList = new ArrayList<>();
         Collections.addAll(mOperatorList, "create", "defer", "never", "empty", "error");
-        Collections.addAll(mOperatorList, "from", "interval", "just", "range");
+        Collections.addAll(mOperatorList, "from", "interval", "just", "range", "repeat");
 
         mOperatorRv.addNewTextList(mOperatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -98,10 +98,33 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
             case 8:
                 range();
                 break;
+            case 9:
+                repeat();
+                break;
 
             default:
                 break;
         }
+    }
+
+    private void repeat() {
+        // 参考repeat.png
+
+        // 会将一个Observable对象重复发射,接收值是发射的次数
+
+        Observable.just(DateUtils.getSimpleHourMinuteSecond(System.currentTimeMillis()))
+                .repeat(3, AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        mLogRv.addText(s);
+                    }
+                });
+
+        // 输出结果:
+        // 18:00:00
+        // 18:00:00
+        // 18:00:00
     }
 
     private void range() {

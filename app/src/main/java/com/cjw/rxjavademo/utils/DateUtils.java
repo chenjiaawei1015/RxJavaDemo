@@ -17,6 +17,10 @@ public class DateUtils {
         return getDateString("yyyy-MM-dd", timeMillis);
     }
 
+    public static String getSimpleHourMinuteSecondMillis(long timeMillis) {
+        return getDateString("HH:mm:ss SSS", timeMillis);
+    }
+
     public static String getSimpleHourMinuteSecond(long timeMillis) {
         return getDateString("HH:mm:ss", timeMillis);
     }

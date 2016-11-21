@@ -823,22 +823,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 1
     //        }
     //
-    //        public void repeat() {
-    //            // repeat
-    //            // 会将一个Observable对象重复发射,接收值是发射的次数,依然订阅在computation Scheduler
-    //
-    //            Observable.just(1).repeat(3).subscribe(new Action1<Integer>() {
-    //                @Override
-    //                public void call(Integer integer) {
-    //                    Log.d(TAG, "call: " + integer);
-    //                }
-    //            });
-    //
-    //            // call: 1
-    //            // call: 1
-    //            // call: 1
-    //        }
-    //
     //        public void timer() {
     //            // timer
     //            // 会在指定时间后发射,注意其也是运行在computation Scheduler
