@@ -32,7 +32,6 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
 
     private CommonTextRecyclerView mOperatorRv;
     private CommonTextRecyclerView mLogRv;
-    private List<String> mOperatorList;
 
     public static void navigateTo(Context context) {
         Intent intent = new Intent(context, Demo2Activity.class);
@@ -60,12 +59,12 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         super.initWidget();
         mTitleTv.setText("创建操作符");
 
-        mOperatorList = new ArrayList<>();
-        Collections.addAll(mOperatorList, "create", "defer", "never", "empty", "error");
-        Collections.addAll(mOperatorList, "from", "interval", "just", "range", "repeat");
-        Collections.addAll(mOperatorList, "timer");
+        List<String> operatorList = new ArrayList<>();
+        Collections.addAll(operatorList, "create", "defer", "never", "empty", "error");
+        Collections.addAll(operatorList, "from", "interval", "just", "range", "repeat");
+        Collections.addAll(operatorList, "timer");
 
-        mOperatorRv.addNewTextList(mOperatorList);
+        mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
     }
 

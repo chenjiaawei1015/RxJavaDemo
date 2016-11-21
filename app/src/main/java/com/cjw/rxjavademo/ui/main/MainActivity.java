@@ -7,6 +7,7 @@ import com.cjw.rxjavademo.R;
 import com.cjw.rxjavademo.ui.base.AppBarActivity;
 import com.cjw.rxjavademo.ui.demo1.Demo1Activity;
 import com.cjw.rxjavademo.ui.demo2.Demo2Activity;
+import com.cjw.rxjavademo.ui.demo3.Demo3Activity;
 import com.cjw.rxjavademo.ui.main.adapter.MainAdapter;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 
@@ -37,6 +38,10 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
                 Demo2Activity.navigateTo(mContext);
                 break;
 
+            case 2: // 转换类操作符
+                Demo3Activity.navigateTo(mContext);
+                break;
+
             default:
                 break;
         }
@@ -59,7 +64,7 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
         mMainRv.addItemDividerDecoration(mContext);
 
         List<String> titleList = new ArrayList<>();
-        Collections.addAll(titleList, "简单的观察者设计模式", "创建操作符");
+        Collections.addAll(titleList, "简单的观察者设计模式", "创建操作符", "转换类操作符");
         MainAdapter adapter = new MainAdapter(mContext, titleList);
         adapter.setItemClickListener(this);
         mMainRv.setAdapter(adapter);
@@ -803,24 +808,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // in subscribe : not run on MainThread, current Thread id : 176
     //            // call: new s2
     //            // in subscribe : not run on MainThread, current Thread id : 176
-    //        }
-    //
-    //        public void delay() {
-    //            // delay
-    //            // 功能与timer操作符一样,但是delay用于在事件中,可以延迟发送事件中的某一次发送
-    //
-    //            Log.d(TAG, "start: " + System.currentTimeMillis());
-    //            Observable.just(1).delay(2, TimeUnit.SECONDS).subscribe(new Action1<Integer>() {
-    //                @Override
-    //                public void call(Integer integer) {
-    //                    Log.d(TAG, "stop: " + System.currentTimeMillis());
-    //                    Log.d(TAG, "call: " + integer);
-    //                }
-    //            });
-    //
-    //            // start: 1476432983761
-    //            // stop: 1476432985761
-    //            // call: 1
     //        }
     //
     //        public void range() {
