@@ -53,7 +53,7 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("转换操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "buffer发送", "buffer收集");
+        Collections.addAll(operatorList, "buffer发送", "buffer收集", "flatMap");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -61,6 +61,7 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
 
     @Override
     public void onTextItemClick(UltimateRecyclerView rv, int position) {
+        mLogRv.clearTextList();
         switch (position) {
             case 0: // buffer发送
                 bufferDemo1();
@@ -70,9 +71,39 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
                 bufferDemo2();
                 break;
 
+            case 2:
+                flatMap();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void flatMap() {
+        // 参考flatmap.png
+
+        Observable.just(100)
+                .flatMap(new Func1<Integer, Observable<String>>() {
+                    @Override
+                    public Observable<String> call(Integer integer) {
+                        return Observable.just(String.valueOf(integer));
+                    }
+                }).flatMap(new Func1<String, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> call(String s) {
+                int num = Integer.parseInt(s);
+                return Observable.just(num);
+            }
+        }).subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
+                mLogRv.addText(String.valueOf(integer));
+            }
+        });
+
+        // 输出结果:
+        // 100
     }
 
     private void bufferDemo2() {
