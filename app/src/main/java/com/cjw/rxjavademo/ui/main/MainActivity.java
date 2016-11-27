@@ -616,26 +616,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 6          lastRes:3    curRes:3
     //        }
     //
-    //        public void map() {
-    //            // map
-    //            // 映射,一般用于对原始的数据进行加工处理,返回一个加工过后的数据
-    //
-    //            Observable.just(123)
-    //                    .map(new Func1<Integer, String>() {
-    //                        @Override
-    //                        public String call(Integer integer) {
-    //                            return String.valueOf(integer);
-    //                        }
-    //                    }).subscribe(new Action1<String>() {
-    //                @Override
-    //                public void call(String s) {
-    //                    Log.d(TAG, "call: " + s);
-    //                }
-    //            });
-    //
-    //            // call: 123
-    //        }
-    //
     //    /**
     //     * 创建类操作符
     //     */

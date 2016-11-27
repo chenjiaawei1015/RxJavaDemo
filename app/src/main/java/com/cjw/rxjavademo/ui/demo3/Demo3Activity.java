@@ -54,7 +54,8 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("转换操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "buffer发送", "buffer收集", "flatMap", "groupBy");
+        Collections.addAll(operatorList, "buffer发送", "buffer收集", "flatMap", "groupBy", "map");
+
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -80,9 +81,31 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
                 groupBy();
                 break;
 
+            case 4:
+                map();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void map() {
+        Observable.just(100)
+                .map(new Func1<Integer, String>() {
+                    @Override
+                    public String call(Integer integer) {
+                        return String.valueOf(integer);
+                    }
+                }).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                mLogRv.addText(s);
+            }
+        });
+
+        // 输出结果:
+        // 100
     }
 
     private void groupBy() {
