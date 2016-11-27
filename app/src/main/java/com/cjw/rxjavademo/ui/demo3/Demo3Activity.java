@@ -57,7 +57,7 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
 
         List<String> operatorList = new ArrayList<>();
         Collections.addAll(operatorList, "buffer发送", "buffer收集", "flatMap", "groupBy", "map");
-        Collections.addAll(operatorList, "scan");
+        Collections.addAll(operatorList, "scan", "window");
 
 
         mOperatorRv.addNewTextList(operatorList);
@@ -92,9 +92,38 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
                 scan();
                 break;
 
+            case 6:
+                window();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void window() {
+        Observable.range(1, 5).window(2)
+                .subscribe(new Action1<Observable<Integer>>() {
+                    @Override
+                    public void call(Observable<Integer> integerObservable) {
+                        mLogRv.addText(integerObservable.toString());
+                        integerObservable.subscribe(new Action1<Integer>() {
+                            @Override
+                            public void call(Integer integer) {
+                                mLogRv.addText(String.valueOf(integer));
+                            }
+                        });
+                    }
+                });
+
+        // rx.subjects.UnicastSubject@220a7e3f
+        // 1
+        // 2
+        // rx.subjects.UnicastSubject@14a9230c
+        // 3
+        // 4
+        // rx.subjects.UnicastSubject@3bf9c455
+        // 5
     }
 
     private void scan() {
