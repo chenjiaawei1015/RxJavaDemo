@@ -592,30 +592,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call() called with: integer = [5]
     //        }
     //
-    //        public void scan() {
-    //            // scan
-    //            // 遍历源Observable产生的结果,通过自定义转换规则,依次输出结果给订阅者
-    //
-    //            Observable.range(0, 4).scan(new Func2<Integer, Integer, Integer>() {
-    //                @Override
-    //                public Integer call(Integer lastRes, Integer curRes) {
-    //                    // 第一个参数是上次的结算结果
-    //                    // 第二个参数是当此的源observable的输入值
-    //                    return lastRes + curRes;
-    //                }
-    //            }).subscribe(new Action1<Integer>() {
-    //                @Override
-    //                public void call(Integer integer) {
-    //                    Log.d(TAG, "call: " + integer);
-    //                }
-    //            });
-    //
-    //            // call: 0          lastRes:0    curRes:0
-    //            // call: 1          lastRes:0    curRes:1
-    //            // call: 3          lastRes:1    curRes:2
-    //            // call: 6          lastRes:3    curRes:3
-    //        }
-    //
     //    /**
     //     * 创建类操作符
     //     */

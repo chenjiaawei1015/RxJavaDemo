@@ -16,9 +16,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.functions.Func2;
 import rx.observables.GroupedObservable;
 import rx.schedulers.Schedulers;
 
@@ -55,6 +57,7 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
 
         List<String> operatorList = new ArrayList<>();
         Collections.addAll(operatorList, "buffer发送", "buffer收集", "flatMap", "groupBy", "map");
+        Collections.addAll(operatorList, "scan");
 
 
         mOperatorRv.addNewTextList(operatorList);
@@ -85,9 +88,48 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
                 map();
                 break;
 
+            case 5:
+                scan();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void scan() {
+        Observable.just(1, 2, 3, 4, 5)
+                .scan(new Func2<Integer, Integer, Integer>() {
+                    @Override
+                    public Integer call(Integer sum, Integer item) {
+                        // 第一个参数是上次的结算结果
+                        // 第二个参数是当此的源observable的输入值
+                        return sum + item;
+                    }
+                }).subscribe(new Subscriber<Integer>() {
+            @Override
+            public void onNext(Integer item) {
+                mLogRv.addText("Next: " + item);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                mLogRv.addText("Error: " + error.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                mLogRv.addText("complete");
+            }
+        });
+
+        // 输出结果:
+        // Next: 1
+        // Next: 3
+        // Next: 6
+        // Next: 10
+        // Next: 15
+        // complete
     }
 
     private void map() {
