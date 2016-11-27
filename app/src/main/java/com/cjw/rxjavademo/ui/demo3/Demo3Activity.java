@@ -19,6 +19,7 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.observables.GroupedObservable;
 import rx.schedulers.Schedulers;
 
 public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerViewAdapter.OnTextItemClickListener {
@@ -53,7 +54,7 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("转换操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "buffer发送", "buffer收集", "flatMap");
+        Collections.addAll(operatorList, "buffer发送", "buffer收集", "flatMap", "groupBy");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -75,9 +76,45 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
                 flatMap();
                 break;
 
+            case 3:
+                groupBy();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void groupBy() {
+        // 参考groupby.png
+
+        List<String> dataList = new ArrayList<>();
+        Collections.addAll(dataList, "10", "str1", "str2", "20", "30");
+
+        Observable.from(dataList)
+                .groupBy(new Func1<String, Boolean>() {
+                    @Override
+                    public Boolean call(String s) {
+                        return s.matches("^(\\d)+$");
+                    }
+                }).subscribe(new Action1<GroupedObservable<Boolean, String>>() {
+            @Override
+            public void call(final GroupedObservable<Boolean, String> booleanStringGroupedObservable) {
+                booleanStringGroupedObservable.subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        mLogRv.addText("key : " + booleanStringGroupedObservable.getKey() + " , value : " + s);
+                    }
+                });
+            }
+        });
+
+        // 输出结果:
+        // call: key : true , value : 10
+        // call: key : false , value : str1
+        // call: key : false , value : str2
+        // call: key : true , value : 20
+        // call: key : true , value : 30
     }
 
     private void flatMap() {
