@@ -57,7 +57,7 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("筛选操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "deBounce", "");
+        Collections.addAll(operatorList, "deBounce", "distinct");
 
 
         mOperatorRv.addNewTextList(operatorList);
@@ -71,9 +71,32 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
                 deBounce();
                 break;
 
+            case 1:
+                distinct();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void distinct() {
+        // 忽略相同的数据
+        List<Integer> list = new ArrayList<>();
+        Collections.addAll(list, 1, 2, 3, 1, 2, 3);
+        Observable.from(list)
+                .distinct()
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        mLogRv.addText(String.valueOf(integer));
+                    }
+                });
+
+        // 输出结果:
+        // 1
+        // 2
+        // 3
     }
 
     private void deBounce() {
@@ -104,6 +127,7 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
                     }
                 });
 
+        // 输出结果:
         // 5
         // 6
         // 7
