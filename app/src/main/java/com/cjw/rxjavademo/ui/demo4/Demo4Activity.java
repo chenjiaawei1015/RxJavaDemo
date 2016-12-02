@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 /**
@@ -76,7 +77,8 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void deBounce() {
-        // 在源Observable产生一个结果时开始计时,如果在规定的间隔时间内没有别的结果产生或者在此期间调用了onCompleted,则发射数据,否则忽略发射
+        // 在源Observable产生一个结果后开始计时
+        // 如果在规定时间内没有新数据产生或者在调用了onCompleted,则发射数据,否则当前数据取消发射
 
         Observable.create(new Observable.OnSubscribe<Integer>() {
 
@@ -94,6 +96,7 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
                 }
             }
         }).debounce(400, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Integer>() {
                     @Override
                     public void call(Integer integer) {
