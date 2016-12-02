@@ -11,6 +11,9 @@ import com.cjw.rxjavademo.widget.logRecyclerView.CommonTextRecyclerView;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * 简单的观察者设计模式
+ */
 public class Demo1Activity extends AppBarActivity {
 
     private CommonTextRecyclerView mLogRv;
@@ -41,10 +44,12 @@ public class Demo1Activity extends AppBarActivity {
 
         // 创建观察者及被观察者
         MyObservable observable = new MyObservable();
-        MyObserver observer = new MyObserver();
+        MyObserver observer1 = new MyObserver();
+        MyObserver observer2 = new MyObserver();
 
         // 添加观察者对象
-        observable.addObserver(observer);
+        observable.addObserver(observer1);
+        observable.addObserver(observer2);
 
         // 被观察的数据发生变化,通知观察者数据更新
         observable.updateData(1);
@@ -52,7 +57,7 @@ public class Demo1Activity extends AppBarActivity {
         observable.updateData(3);
 
         // 最后显示的结果为:
-        // 显示了3条数据
+        // 显示了6条数据
     }
 
     /**
@@ -61,12 +66,9 @@ public class Demo1Activity extends AppBarActivity {
      */
     class MyObservable extends Observable {
 
-        int currentData;
-
         void updateData(int data) {
-            this.currentData = data;
             setChanged();
-            notifyObservers();
+            notifyObservers(data);
         }
 
     }
@@ -80,7 +82,7 @@ public class Demo1Activity extends AppBarActivity {
         // 有被观察者发生变化,自动调用对应观察者的update方法
         @Override
         public void update(Observable o, Object arg) {
-            mLogRv.addText("currentData : " + ((MyObservable) o).currentData);
+            mLogRv.addText(String.valueOf((int) arg));
         }
     }
 }
