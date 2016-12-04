@@ -366,25 +366,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 2
     //            // call: 3
     //        }
-    //
-    //        public void skip() {
-    //            // skip
-    //            // 跳过前面的n项数据不进行处理
-    //
-    //            Observable.just(1, 2, 3, 4, 5)
-    //                    .skip(2)
-    //                    .subscribe(new Action1<Integer>() {
-    //                        @Override
-    //                        public void call(Integer integer) {
-    //                            Log.d(TAG, "call: " + integer);
-    //                        }
-    //                    });
-    //
-    //            // call: 3
-    //            // call: 4
-    //            // call: 5
-    //        }
-    //
     //    class OperatorCreate {
     //
     //        public void observerOn() {
