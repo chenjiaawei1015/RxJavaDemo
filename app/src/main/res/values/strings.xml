@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RxJavaDemo</string>
+    <string name="clear">清除</string>
 </resources>

@@ -267,55 +267,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // onCompleted
     //        }
     //
-    //        public void combineLatest() {
-    //            // combineLatest
-    //            // 当两个Observables中的任何一个发射了一个数据时,将两个Observables数据通过指定的规则进行处理,将结果进行发射
-    //            // 注意:
-    //            // 只有当两个observable都发射过第一项数据时,才能进行组合发射
-    //            // 当每一个observable都发射首个数据后,在此发射任何数据都会找相应的另外一个observable的最新数据进行组合发射
-    //
-    //            Observable<Long> observable1 = Observable.interval(0, 300, TimeUnit.MILLISECONDS).take(4);
-    //            Observable<Long> observable2 = Observable.interval(500, 250, TimeUnit.MILLISECONDS).take(3);
-    //
-    //            Log.d(TAG, "startTime: " + System.currentTimeMillis());
-    //            Observable.combineLatest(observable1, observable2, new Func2<Long, Long, Long>() {
-    //                @Override
-    //                public Long call(Long aLong1, Long aLong2) {
-    //                    Log.d(TAG, "aLong1 = [" + aLong1 + "], aLong2 = [" + aLong2 + "], time = [" + System.currentTimeMillis() + "]");
-    //                    return aLong1 + aLong2;
-    //                }
-    //            }).subscribe(new Action1<Long>() {
-    //                @Override
-    //                public void call(Long aLong) {
-    //                    Log.d(TAG, "call: " + aLong);
-    //                }
-    //            });
-    //
-    //            // startTime: 1476843262324
-    //            // aLong1 = [1], aLong2 = [0], time = [1476843262824]
-    //            // call: 1
-    //            // aLong1 = [2], aLong2 = [0], time = [1476843262925]
-    //            // call: 2
-    //            // aLong1 = [2], aLong2 = [1], time = [1476843263075]
-    //            // call: 3
-    //            // aLong1 = [3], aLong2 = [1], time = [1476843263224]
-    //            // call: 4
-    //            // aLong1 = [3], aLong2 = [2], time = [1476843263324]
-    //            // call: 5
-    //
-    //            // 分析:
-    //            // observable1 打印时间分别为:  0ms    300ms  600ms  900ms
-    //            // observable2 打印时间分别为:  500ms  750ms  900ms  1000ms
-    //            // 只有当两个observable都发射过第一项数据时,才能进行组合发射
-    //            // 第1次发射时间: 500ms   a1 = 1 , a2 = 0
-    //            // 第2次发射时间: 600ms   a1 = 2 , a2 = 0
-    //            // 第3次发射时间: 750ms   a1 = 2 , a2 = 1
-    //            // 第4次发射时间: 900ms   a1 = 3 , a2 = 1
-    //            // 第5次发射时间: 1000ms  a1 = 3 , a2 = 2
-    //        }
-    //
-    //    }
-    //
     //    class OperatorCreate {
     //
     //        public void observerOn() {
