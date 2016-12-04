@@ -60,7 +60,8 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
 
         List<String> operatorList = new ArrayList<>();
         Collections.addAll(operatorList, "deBounce", "distinct", "elementAt", "filter", "first");
-        Collections.addAll(operatorList, "ignoreElements", "last", "sample", "skip");
+        Collections.addAll(operatorList, "ignoreElements", "last", "sample", "skip", "skipLast");
+        Collections.addAll(operatorList, "take", "takeLast");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -106,9 +107,73 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
                 skip();
                 break;
 
+            case 9:
+                skipLast();
+                break;
+
+            case 10:
+                take();
+                break;
+
+            case 11:
+                takeLast();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void takeLast() {
+        // 取后n项数据
+        Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
+        Observable.from(arr)
+                .takeLast(2)
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        mLogRv.addText(String.valueOf(integer));
+                    }
+                });
+
+        // 输出结果:
+        // 4
+        // 5
+    }
+
+    private void take() {
+        // 取前n项数据
+        Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
+        Observable.from(arr)
+                .take(2)
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        mLogRv.addText(String.valueOf(integer));
+                    }
+                });
+
+        // 输出结果:
+        // 0
+        // 1
+    }
+
+    private void skipLast() {
+        // 过滤后n项数据
+        Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
+        Observable.from(arr)
+                .skipLast(3)
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        mLogRv.addText(String.valueOf(integer));
+                    }
+                });
+
+        // 输出结果:
+        // 0
+        // 1
+        // 2
     }
 
     private void skip() {

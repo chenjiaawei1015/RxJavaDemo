@@ -310,62 +310,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //
     //    }
     //
-    //    /**
-    //     * 过滤操作符
-    //     */
-    //    class OperatorFilter {
-    //
-    //        public void takeLast() {
-    //            // takeLast
-    //            // 与skipLast用法相反,只保留后面的n项数据进行发射,而忽略前面的结果
-    //
-    //            Observable.just(1, 2, 3, 4, 5)
-    //                    .takeLast(2)
-    //                    .subscribe(new Action1<Integer>() {
-    //                        @Override
-    //                        public void call(Integer integer) {
-    //                            Log.d(TAG, "call: " + integer);
-    //                        }
-    //                    });
-    //
-    //            // call: 4
-    //            // call: 5
-    //        }
-    //
-    //        public void take() {
-    //            // take
-    //            // 与skip用法相反,保留前面的n项数据进行发射,而忽略后面的结果
-    //
-    //            Observable.just(1, 2, 3, 4, 5)
-    //                    .take(2)
-    //                    .subscribe(new Action1<Integer>() {
-    //                        @Override
-    //                        public void call(Integer integer) {
-    //                            Log.d(TAG, "call: " + integer);
-    //                        }
-    //                    });
-    //
-    //            // call: 1
-    //            // call: 2
-    //        }
-    //
-    //        public void skipLast() {
-    //            // skipLast
-    //            // 跳过后面的n项数据不进行处理
-    //
-    //            Observable.just(1, 2, 3, 4, 5)
-    //                    .skipLast(2)
-    //                    .subscribe(new Action1<Integer>() {
-    //                        @Override
-    //                        public void call(Integer integer) {
-    //                            Log.d(TAG, "call: " + integer);
-    //                        }
-    //                    });
-    //
-    //            // call: 1
-    //            // call: 2
-    //            // call: 3
-    //        }
     //    class OperatorCreate {
     //
     //        public void observerOn() {
