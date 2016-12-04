@@ -59,7 +59,7 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
 
         List<String> operatorList = new ArrayList<>();
         Collections.addAll(operatorList, "deBounce", "distinct", "elementAt", "filter", "first");
-        Collections.addAll(operatorList, "ignoreElements");
+        Collections.addAll(operatorList, "ignoreElements", "last");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -93,9 +93,29 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
                 ignoreElements();
                 break;
 
+            case 6:
+                last();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void last() {
+        // 获取最后一个元素
+        Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
+        Observable.from(arr)
+                .last()
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        mLogRv.addText(String.valueOf(integer));
+                    }
+                });
+
+        // 输出结果:
+        // 5
     }
 
     private void ignoreElements() {

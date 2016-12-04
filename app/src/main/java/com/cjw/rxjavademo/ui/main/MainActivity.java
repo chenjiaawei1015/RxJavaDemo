@@ -405,46 +405,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 8
     //        }
     //
-    //        public void last() {
-    //            // last
-    //            // 末项,只发射末项或满足条件的末项数据
-    //
-    //            Observable.just(100, 101, 102, 103, 104)
-    //                    .last(new Func1<Integer, Boolean>() {
-    //                        @Override
-    //                        public Boolean call(Integer integer) {
-    //                            return integer % 2 != 0;
-    //                        }
-    //                    }).subscribe(new Action1<Integer>() {
-    //                @Override
-    //                public void call(Integer integer) {
-    //                    Log.d(TAG, "call: " + integer);
-    //                }
-    //            });
-    //
-    //            // call: 103
-    //        }
-    //
-    //        public void first() {
-    //            // first
-    //            // 首项,只发射首项或满足条件的首项数据
-    //
-    //            Observable.just(100, 101, 102, 103, 104)
-    //                    .first(new Func1<Integer, Boolean>() {
-    //                        @Override
-    //                        public Boolean call(Integer integer) {
-    //                            return integer % 2 != 0;
-    //                        }
-    //                    }).subscribe(new Action1<Integer>() {
-    //                @Override
-    //                public void call(Integer integer) {
-    //                    Log.d(TAG, "call: " + integer);
-    //                }
-    //            });
-    //
-    //            // call: 101
-    //        }
-    //
     //    class OperatorCreate {
     //
     //        public void observerOn() {
