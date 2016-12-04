@@ -20,6 +20,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * 筛选操作符
@@ -57,8 +58,7 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("筛选操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "deBounce", "distinct", "elementAt");
-
+        Collections.addAll(operatorList, "deBounce", "distinct", "elementAt", "filter");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -80,12 +80,39 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
                 elementAt();
                 break;
 
+            case 3:
+                filter();
+                break;
+
             default:
                 break;
         }
     }
 
+    private void filter() {
+        // 筛选满足条件的元素
+        Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
+        Observable.from(arr)
+                .filter(new Func1<Integer, Boolean>() {
+                    @Override
+                    public Boolean call(Integer integer) {
+                        return integer % 2 == 0;
+                    }
+                }).subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
+                mLogRv.addText(String.valueOf(integer));
+            }
+        });
+
+        // 输出结果:
+        // 0
+        // 2
+        // 4
+    }
+
     private void elementAt() {
+        // 获取指定位置的元素
         String[] arr = new String[]{"s0", "s1", "s2"};
         Observable.from(arr)
                 .elementAt(1)
