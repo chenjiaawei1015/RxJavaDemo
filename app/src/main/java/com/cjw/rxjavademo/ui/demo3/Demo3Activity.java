@@ -59,7 +59,6 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
         Collections.addAll(operatorList, "buffer发送", "buffer收集", "flatMap", "groupBy", "map");
         Collections.addAll(operatorList, "scan", "window");
 
-
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
     }

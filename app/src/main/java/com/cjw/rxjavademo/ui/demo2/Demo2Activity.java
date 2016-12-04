@@ -49,7 +49,6 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
     @Override
     protected void findWidget() {
         super.findWidget();
-
         mOperatorRv = (CommonTextRecyclerView) findViewById(R.id.operator_rv);
         mLogRv = (CommonTextRecyclerView) findViewById(R.id.log_rv);
     }
@@ -75,33 +74,43 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
             case 0:
                 create();
                 break;
+
             case 1:
                 defer();
                 break;
+
             case 2:
                 never();
                 break;
+
             case 3:
                 empty();
                 break;
+
             case 4:
                 error();
                 break;
+
             case 5:
                 from();
                 break;
+
             case 6:
                 interval();
                 break;
+
             case 7:
                 just();
                 break;
+
             case 8:
                 range();
                 break;
+
             case 9:
                 repeat();
                 break;
+
             case 10:
                 timer();
                 break;

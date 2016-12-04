@@ -64,7 +64,7 @@ public class Demo1Activity extends AppBarActivity {
      * 在观察者模式中充当被观察者<br/>
      * 被观察者对象需要继承Observable
      */
-    class MyObservable extends Observable {
+    private class MyObservable extends Observable {
 
         void updateData(int data) {
             setChanged();
@@ -77,7 +77,7 @@ public class Demo1Activity extends AppBarActivity {
      * 在观察者模式中充当观察者<br/>
      * 观察者对象需要实现Observer对象
      */
-    class MyObserver implements Observer {
+    private class MyObserver implements Observer {
 
         // 有被观察者发生变化,自动调用对应观察者的update方法
         @Override
