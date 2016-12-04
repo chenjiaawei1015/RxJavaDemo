@@ -405,32 +405,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 8
     //        }
     //
-    //        public void ignoreElements() {
-    //            // ignoreElements
-    //            // 忽略所有数据,只保留终止通知(onError或onCompleted)
-    //
-    //            Observable.just(100, 101, 102, 103, 104)
-    //                    .ignoreElements()
-    //                    .subscribe(new Subscriber<Integer>() {
-    //                        @Override
-    //                        public void onCompleted() {
-    //                            Log.d(TAG, "onCompleted");
-    //                        }
-    //
-    //                        @Override
-    //                        public void onError(Throwable e) {
-    //                            Log.d(TAG, "onError");
-    //                        }
-    //
-    //                        @Override
-    //                        public void onNext(Integer integer) {
-    //                            Log.d(TAG, "onNext: " + integer);
-    //                        }
-    //                    });
-    //
-    //            // onCompleted
-    //        }
-    //
     //        public void last() {
     //            // last
     //            // 末项,只发射末项或满足条件的末项数据

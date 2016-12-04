@@ -58,7 +58,8 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("筛选操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "deBounce", "distinct", "elementAt", "filter");
+        Collections.addAll(operatorList, "deBounce", "distinct", "elementAt", "filter", "first");
+        Collections.addAll(operatorList, "ignoreElements");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -84,9 +85,59 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
                 filter();
                 break;
 
+            case 4:
+                first();
+                break;
+
+            case 5:
+                ignoreElements();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void ignoreElements() {
+        // 忽略所有元素
+        Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
+        Observable.from(arr)
+                .ignoreElements()
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onCompleted() {
+                        mLogRv.addText("complete");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mLogRv.addText("error");
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        mLogRv.addText(String.valueOf(integer));
+                    }
+                });
+
+        // 输出结果:
+        // complete
+    }
+
+    private void first() {
+        // 获取第一个元素
+        Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
+        Observable.from(arr)
+                .first()
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        mLogRv.addText(String.valueOf(integer));
+                    }
+                });
+
+        // 输出结果:
+        // 0
     }
 
     private void filter() {
