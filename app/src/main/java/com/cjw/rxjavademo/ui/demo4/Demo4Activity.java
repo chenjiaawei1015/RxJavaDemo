@@ -57,7 +57,7 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("筛选操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "deBounce", "distinct");
+        Collections.addAll(operatorList, "deBounce", "distinct", "elementAt");
 
 
         mOperatorRv.addNewTextList(operatorList);
@@ -66,6 +66,7 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
 
     @Override
     public void onTextItemClick(UltimateRecyclerView rv, int position) {
+        mLogRv.clearTextList();
         switch (position) {
             case 0:
                 deBounce();
@@ -75,9 +76,28 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
                 distinct();
                 break;
 
+            case 2:
+                elementAt();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void elementAt() {
+        String[] arr = new String[]{"s0", "s1", "s2"};
+        Observable.from(arr)
+                .elementAt(1)
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        mLogRv.addText(s);
+                    }
+                });
+
+        // 输出结果:
+        // s1
     }
 
     private void distinct() {
