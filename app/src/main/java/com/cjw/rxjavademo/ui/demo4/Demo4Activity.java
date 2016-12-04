@@ -21,6 +21,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * 筛选操作符
@@ -59,7 +60,7 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
 
         List<String> operatorList = new ArrayList<>();
         Collections.addAll(operatorList, "deBounce", "distinct", "elementAt", "filter", "first");
-        Collections.addAll(operatorList, "ignoreElements", "last");
+        Collections.addAll(operatorList, "ignoreElements", "last", "sample");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -97,9 +98,29 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
                 last();
                 break;
 
+            case 7:
+                sample();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void sample() {
+        // 取样,定期扫描源Observable产生的数据,发射最新的数据
+        Observable.interval(100, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .sample(200, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Long>() {
+                    @Override
+                    public void call(Long data) {
+                        mLogRv.addText(String.valueOf(data));
+                    }
+                });
+
+        // 输出结果:显示的数据均为偶数
     }
 
     private void last() {

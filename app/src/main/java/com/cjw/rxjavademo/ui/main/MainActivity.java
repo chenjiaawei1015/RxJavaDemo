@@ -385,26 +385,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: 5
     //        }
     //
-    //        public void sample() {
-    //            // sample
-    //            // 取样,定期扫描源Observable产生的数据,发射最新的数据
-    //
-    //            Observable.interval(100, TimeUnit.MILLISECONDS)
-    //                    .sample(200, TimeUnit.MILLISECONDS)
-    //                    .subscribe(new Action1<Long>() {
-    //                        @Override
-    //                        public void call(Long aLong) {
-    //                            Log.d(TAG, "call: " + aLong);
-    //                        }
-    //                    });
-    //
-    //            // 输出的数字均为偶数,结果会一直打印
-    //            // call: 2
-    //            // call: 4
-    //            // call: 6
-    //            // call: 8
-    //        }
-    //
     //    class OperatorCreate {
     //
     //        public void observerOn() {
