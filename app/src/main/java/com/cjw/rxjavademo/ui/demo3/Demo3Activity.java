@@ -3,9 +3,11 @@ package com.cjw.rxjavademo.ui.demo3;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.cjw.rxjavademo.R;
 import com.cjw.rxjavademo.ui.base.AppBarActivity;
+import com.cjw.rxjavademo.utils.DateUtils;
 import com.cjw.rxjavademo.widget.logRecyclerView.CommonTextRecyclerView;
 import com.cjw.rxjavademo.widget.logRecyclerView.adapter.CommonTextRecyclerViewAdapter;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
@@ -101,31 +103,45 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void window() {
-        Observable.range(1, 5).window(2)
+        // 参考window.png
+        Observable.range(0, 10)
+                .window(2, TimeUnit.SECONDS, 3, AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Observable<Integer>>() {
                     @Override
                     public void call(Observable<Integer> integerObservable) {
                         mLogRv.addText(integerObservable.toString());
+                        Log.d(TAG, integerObservable.toString());
+
                         integerObservable.subscribe(new Action1<Integer>() {
                             @Override
                             public void call(Integer integer) {
-                                mLogRv.addText(String.valueOf(integer));
+                                String text = integer + " : " + DateUtils.getSimpleHourMinuteSecondMillis(System.currentTimeMillis());
+                                mLogRv.addText(text);
+                                Log.d(TAG, text);
                             }
                         });
                     }
                 });
 
-        // rx.subjects.UnicastSubject@220a7e3f
-        // 1
-        // 2
-        // rx.subjects.UnicastSubject@14a9230c
-        // 3
-        // 4
-        // rx.subjects.UnicastSubject@3bf9c455
-        // 5
+        // 输出结果:
+        // rx.subjects.UnicastSubject@fe6846b
+        // 0 : 10:52:29 539
+        // 1 : 10:52:29 542
+        // 2 : 10:52:29 543
+        // rx.subjects.UnicastSubject@7412bc8
+        // 3 : 10:52:29 545
+        // 4 : 10:52:29 545
+        // 5 : 10:52:29 546
+        // rx.subjects.UnicastSubject@6c6c461
+        // 6 : 10:52:29 547
+        // 7 : 10:52:29 548
+        // 8 : 10:52:29 548
+        // rx.subjects.UnicastSubject@67d5b86
+        // 9 : 10:52:29 549
     }
 
     private void scan() {
+        // 参考scan.png
         Observable.just(1, 2, 3, 4, 5)
                 .scan(new Func2<Integer, Integer, Integer>() {
                     @Override
@@ -161,6 +177,7 @@ public class Demo3Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void map() {
+        // 参考map.png
         Observable.just(100)
                 .map(new Func1<Integer, String>() {
                     @Override

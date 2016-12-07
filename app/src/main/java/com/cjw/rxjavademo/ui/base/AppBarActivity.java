@@ -16,6 +16,8 @@ import com.cjw.rxjavademo.R;
 
 public class AppBarActivity extends AppCompatActivity {
 
+    protected final String TAG = getClass().getSimpleName();
+    
     protected Toolbar mToolbar;
     protected TextView mTitleTv;
     protected Context mContext;

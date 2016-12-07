@@ -237,9 +237,9 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
         mLogRv.addText("Start Time : " + DateUtils.getSimpleHourMinuteSecond(System.currentTimeMillis()));
         // 先等待2秒,后每1秒调用一次,直到结束为止
         Observable.interval(2, 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .flatMap(new Func1<Long, Observable<?>>() {
+                .flatMap(new Func1<Long, Observable<Long>>() {
                     @Override
-                    public Observable<?> call(Long num) {
+                    public Observable<Long> call(Long num) {
                         mTestCount++;
                         if (mTestCount >= 5) {
                             return Observable.empty();
@@ -247,29 +247,20 @@ public class Demo2Activity extends AppBarActivity implements CommonTextRecyclerV
                             return Observable.just(num);
                         }
                     }
-                }).subscribe(new Subscriber<Object>() {
+                }).subscribe(new Action1<Long>() {
             @Override
-            public void onCompleted() {
-                mLogRv.addText("completed : " + DateUtils.getSimpleHourMinuteSecond(System.currentTimeMillis()));
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                mLogRv.addText("error : " + DateUtils.getSimpleHourMinuteSecond(System.currentTimeMillis()));
-            }
-
-            @Override
-            public void onNext(Object o) {
-                mLogRv.addText("next : " + DateUtils.getSimpleHourMinuteSecond(System.currentTimeMillis()));
+            public void call(Long num) {
+                String text = "num = " + num + ", time = " + DateUtils.getSimpleHourMinuteSecond(System.currentTimeMillis());
+                mLogRv.addText(text);
             }
         });
 
         // 输出结果:
-        // Start Time : 14:43:37
-        // next : 14:43:39
-        // next : 14:43:40
-        // next : 14:43:41
-        // next : 14:43:42
+        // Start Time : 10:12:06
+        // num = 0, time = 10:12:08
+        // num = 1, time = 10:12:09
+        // num = 2, time = 10:12:10
+        // num = 3, time = 10:12:11
     }
 
     private void from() {

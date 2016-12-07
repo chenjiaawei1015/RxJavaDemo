@@ -125,6 +125,7 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void takeLast() {
+        // 参考 takelast_count.png 和 takelast_time.png
         // 取后n项数据
         Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
         Observable.from(arr)
@@ -142,6 +143,7 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void take() {
+        // 参考 take_count.png 和 take_time.png
         // 取前n项数据
         Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
         Observable.from(arr)
@@ -159,7 +161,9 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void skipLast() {
+        // 参考 skiplast_count.png 和 skiplast_time.png
         // 过滤后n项数据
+
         Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
         Observable.from(arr)
                 .skipLast(3)
@@ -177,7 +181,9 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void skip() {
+        // 参考 skip_count.png 和 skip_time.png
         // 过滤前n项数据
+
         Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
         Observable.from(arr)
                 .skip(3)
@@ -195,7 +201,9 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void sample() {
+        // 参考sample.png
         // 取样,定期扫描源Observable产生的数据,发射最新的数据
+
         Observable.interval(100, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .sample(200, TimeUnit.MILLISECONDS)
@@ -211,7 +219,9 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void last() {
+        // 参考last.png
         // 获取最后一个元素
+
         Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
         Observable.from(arr)
                 .last()
@@ -227,7 +237,9 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void ignoreElements() {
+        // 参考ignore_elements.png
         // 忽略所有元素
+
         Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
         Observable.from(arr)
                 .ignoreElements()
@@ -253,7 +265,9 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void first() {
+        // 参考first.png
         // 获取第一个元素
+
         Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
         Observable.from(arr)
                 .first()
@@ -269,7 +283,9 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void filter() {
+        // 参考filter.png
         // 筛选满足条件的元素
+
         Integer[] arr = new Integer[]{0, 1, 2, 3, 4, 5};
         Observable.from(arr)
                 .filter(new Func1<Integer, Boolean>() {
@@ -291,7 +307,9 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void elementAt() {
+        // 参考elementat.png
         // 获取指定位置的元素
+
         String[] arr = new String[]{"s0", "s1", "s2"};
         Observable.from(arr)
                 .elementAt(1)
@@ -307,7 +325,9 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void distinct() {
+        // 参考distinct.png
         // 忽略相同的数据
+
         List<Integer> list = new ArrayList<>();
         Collections.addAll(list, 1, 2, 3, 1, 2, 3);
         Observable.from(list)
@@ -326,6 +346,7 @@ public class Demo4Activity extends AppBarActivity implements CommonTextRecyclerV
     }
 
     private void deBounce() {
+        // 参考debounce.png
         // 在源Observable产生一个结果后开始计时
         // 如果在规定时间内没有新数据产生或者在调用了onCompleted,则发射数据,否则当前数据取消发射
 
