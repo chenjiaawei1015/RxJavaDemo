@@ -113,59 +113,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
     //            // call: a3 , b3
     //        }
     //
-    //        public void switchOnNext() {
-    //            // switchOnNext
-    //            // 把一组Observable转换成一个Observable,如果在同一个时间内产生两个或多个Observable产生的数据,只发射最后一个Observable产生的数据
-    //
-    //            Log.d(TAG, "startTime: " + System.currentTimeMillis());
-    //            Observable<Observable<String>> observable = Observable.interval(2000, 500, TimeUnit.MILLISECONDS).map(new Func1<Long, Observable<String>>() {
-    //                @Override
-    //                public Observable<String> call(final Long aLongOutside) {
-    //                    // 每隔300ms产生一组数据（0,1,2,3,4)
-    //                    return Observable.interval(0, 300, TimeUnit.MILLISECONDS).map(new Func1<Long, String>() {
-    //                        @Override
-    //                        public String call(Long aLongInside) {
-    //                            return "aLongOutside = " + aLongOutside + " , aLongInside = " + aLongInside + " , time : " + System.currentTimeMillis();
-    //                        }
-    //                    }).take(5);
-    //                }
-    //            }).take(2);
-    //
-    //            Observable.switchOnNext(observable).subscribe(new Action1<String>() {
-    //                @Override
-    //                public void call(String s) {
-    //                    Log.d(TAG, "call: " + s);
-    //                }
-    //            });
-    //
-    //            // startTime: 1476949745501
-    //            // call: aLongOutside = 0 , aLongInside = 0 , time : 1476949747516
-    //            // call: aLongOutside = 0 , aLongInside = 1 , time : 1476949747765
-    //            // call: aLongOutside = 1 , aLongInside = 0 , time : 1476949748015
-    //            // call: aLongOutside = 1 , aLongInside = 1 , time : 1476949748263
-    //            // call: aLongOutside = 1 , aLongInside = 2 , time : 1476949748513
-    //            // call: aLongOutside = 1 , aLongInside = 3 , time : 1476949748764
-    //        }
-    //
-    //        public void startWith() {
-    //            // startWith
-    //            // 在源Observable发射数据之前,先发射一个指定的数据序列或数据项
-    //
-    //            Observable.just(4, 5, 6).startWith(1, 2, 3).subscribe(new Action1<Integer>() {
-    //                @Override
-    //                public void call(Integer integer) {
-    //                    Log.d(TAG, "call: " + integer);
-    //                }
-    //            });
-    //
-    //            // call: 1
-    //            // call: 2
-    //            // call: 3
-    //            // call: 4
-    //            // call: 5
-    //            // call: 6
-    //        }
-    //
     //    class OperatorCreate {
     //
     //        public void observerOn() {

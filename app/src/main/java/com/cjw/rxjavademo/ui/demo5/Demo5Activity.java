@@ -59,7 +59,7 @@ public class Demo5Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("组合操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "combineLatest", "join", "merge", "startWith");
+        Collections.addAll(operatorList, "combineLatest", "join", "merge", "startWith", "switchOnNext");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -85,9 +85,57 @@ public class Demo5Activity extends AppBarActivity implements CommonTextRecyclerV
                 startWith();
                 break;
 
+            case 4:
+                switchOnNext();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void switchOnNext() {
+        // 参考switchonnext.png
+
+        String startTimeStr = DateUtils.getSimpleHourMinuteSecondMillis(System.currentTimeMillis());
+        Log.d(TAG, "startTime: " + startTimeStr);
+        mLogRv.addText(startTimeStr);
+
+        Observable<Observable<String>> observable = Observable.interval(2000, 500, TimeUnit.MILLISECONDS)
+                .map(new Func1<Long, Observable<String>>() {
+                    @Override
+                    public Observable<String> call(final Long aLongOutside) {
+                        // 每隔300ms产生一组数据（0,1,2,3,4)
+                        return Observable.interval(0, 300, TimeUnit.MILLISECONDS)
+                                .map(new Func1<Long, String>() {
+                                    @Override
+                                    public String call(Long aLongInside) {
+                                        return "aLongOutside = " + aLongOutside + " , aLongInside = "
+                                                + aLongInside + " , time : " + DateUtils.getSimpleHourMinuteSecondMillis(System.currentTimeMillis());
+                                    }
+                                }).take(5);
+                    }
+                }).take(2);
+
+        Observable.switchOnNext(observable)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        Log.d(TAG, "call: " + s);
+                        mLogRv.addText(s);
+                    }
+                });
+
+        // 输出结果:
+        // startTime: 17:11:58 226
+        // call: aLongOutside = 0 , aLongInside = 0 , time : 17:12:00 248
+        // call: aLongOutside = 0 , aLongInside = 1 , time : 17:12:00 545
+        // call: aLongOutside = 1 , aLongInside = 0 , time : 17:12:00 744
+        // call: aLongOutside = 1 , aLongInside = 1 , time : 17:12:01 043
+        // call: aLongOutside = 1 , aLongInside = 2 , time : 17:12:01 344
+        // call: aLongOutside = 1 , aLongInside = 3 , time : 17:12:01 644
+        // call: aLongOutside = 1 , aLongInside = 4 , time : 17:12:01 945
     }
 
     private void startWith() {
