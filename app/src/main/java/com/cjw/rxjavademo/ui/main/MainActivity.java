@@ -10,6 +10,7 @@ import com.cjw.rxjavademo.ui.demo2.Demo2Activity;
 import com.cjw.rxjavademo.ui.demo3.Demo3Activity;
 import com.cjw.rxjavademo.ui.demo4.Demo4Activity;
 import com.cjw.rxjavademo.ui.demo5.Demo5Activity;
+import com.cjw.rxjavademo.ui.demo6.Demo6Activity;
 import com.cjw.rxjavademo.ui.main.adapter.MainAdapter;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 
@@ -52,6 +53,10 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
                 Demo5Activity.navigateTo(mContext);
                 break;
 
+            case 5: // 错误处理操作符
+                Demo6Activity.navigateTo(mContext);
+                break;
+
             default:
                 break;
         }
@@ -75,53 +80,9 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
 
         List<String> titleList = new ArrayList<>();
         Collections.addAll(titleList, "简单的观察者设计模式", "创建操作符", "转换类操作符");
-        Collections.addAll(titleList, "筛选操作符", "组合操作符");
+        Collections.addAll(titleList, "筛选操作符", "组合操作符", "错误处理操作符");
         MainAdapter adapter = new MainAdapter(mContext, titleList);
         adapter.setItemClickListener(this);
         mMainRv.setAdapter(adapter);
     }
-
-    //    class OperatorCreate {
-    //
-    //        public void observerOn() {
-    //            // subscribeOn
-    //            // 指定subscribe运行的线程
-    //            // subscribe
-    //
-    //            Observable.just("s1", "s2")
-    //                    .subscribeOn(AndroidSchedulers.mainThread())
-    //                    .map(new Func1<String, String>() {
-    //                        @Override
-    //                        public String call(String s) {
-    //                            long currentThreadID = Thread.currentThread().getId();
-    //                            if (currentThreadID == getMainLooper().getThread().getId()) {
-    //                                Log.d(TAG, "in map : run on MainThread");
-    //                            } else {
-    //                                Log.d(TAG, "in map : not run on MainThread, current Thread id : " + currentThreadID);
-    //                            }
-    //                            return "new " + s;
-    //                        }
-    //                    })
-    //                    .observeOn(Schedulers.newThread())
-    //                    .subscribe(new Action1<String>() {
-    //                        @Override
-    //                        public void call(String s) {
-    //                            Log.d(TAG, "call: " + s);
-    //
-    //                            long currentThreadID = Thread.currentThread().getId();
-    //                            if (currentThreadID == getMainLooper().getThread().getId()) {
-    //                                Log.d(TAG, "in subscribe : run on MainThread");
-    //                            } else {
-    //                                Log.d(TAG, "in subscribe : not run on MainThread, current Thread id : " + currentThreadID);
-    //                            }
-    //                        }
-    //                    });
-    //
-    //            // in map : run on MainThread
-    //            // in map : run on MainThread
-    //            // call: new s1
-    //            // in subscribe : not run on MainThread, current Thread id : 176
-    //            // call: new s2
-    //            // in subscribe : not run on MainThread, current Thread id : 176
-    //        }
 }
