@@ -7,8 +7,8 @@ import android.os.SystemClock;
 
 import com.cjw.rxjavademo.R;
 import com.cjw.rxjavademo.ui.base.AppBarActivity;
-import com.cjw.rxjavademo.widget.logRecyclerView.CommonTextRecyclerView;
-import com.cjw.rxjavademo.widget.logRecyclerView.adapter.CommonTextRecyclerViewAdapter;
+import com.cjw.rxjavademo.widget.logrecyclerview.CommonTextRecyclerView;
+import com.cjw.rxjavademo.widget.logrecyclerview.adapter.CommonTextRecyclerViewAdapter;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 
 import java.util.ArrayList;

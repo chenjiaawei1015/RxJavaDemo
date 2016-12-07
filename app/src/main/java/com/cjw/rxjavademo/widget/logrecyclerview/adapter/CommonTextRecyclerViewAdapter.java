@@ -1,4 +1,4 @@
-package com.cjw.rxjavademo.widget.logRecyclerView.adapter;
+package com.cjw.rxjavademo.widget.logrecyclerview.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import com.cjw.rxjavademo.R;
 import com.cjw.rxjavademo.ui.base.AppBarActivity;
 import com.cjw.rxjavademo.utils.DateUtils;
-import com.cjw.rxjavademo.widget.logRecyclerView.CommonTextRecyclerView;
-import com.cjw.rxjavademo.widget.logRecyclerView.adapter.CommonTextRecyclerViewAdapter;
+import com.cjw.rxjavademo.widget.logrecyclerview.CommonTextRecyclerView;
+import com.cjw.rxjavademo.widget.logrecyclerview.adapter.CommonTextRecyclerViewAdapter;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class Demo5Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("组合操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "combineLatest", "join", "merge");
+        Collections.addAll(operatorList, "combineLatest", "join", "merge", "startWith");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -81,9 +81,35 @@ public class Demo5Activity extends AppBarActivity implements CommonTextRecyclerV
                 merge();
                 break;
 
+            case 3:
+                startWith();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void startWith() {
+        // 参考 startwith.png
+        Observable<Integer> o1 = Observable.just(1, 2, 3);
+        Observable<Integer> o2 = Observable.just(4, 5, 6);
+
+        o2.startWith(o1)
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        mLogRv.addText(String.valueOf(integer));
+                    }
+                });
+
+        // 输出结果:
+        // 1
+        // 2
+        // 3
+        // 4
+        // 5
+        // 6
     }
 
     private void merge() {

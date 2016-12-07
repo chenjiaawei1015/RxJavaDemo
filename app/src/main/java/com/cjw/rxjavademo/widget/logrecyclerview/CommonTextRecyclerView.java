@@ -1,10 +1,10 @@
-package com.cjw.rxjavademo.widget.logRecyclerView;
+package com.cjw.rxjavademo.widget.logrecyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 
-import com.cjw.rxjavademo.widget.logRecyclerView.adapter.CommonTextRecyclerViewAdapter;
+import com.cjw.rxjavademo.widget.logrecyclerview.adapter.CommonTextRecyclerViewAdapter;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 
 import java.util.List;

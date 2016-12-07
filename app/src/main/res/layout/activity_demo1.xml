@@ -10,7 +10,7 @@
 
     <include layout="@layout/common_app_bar"/>
 
-    <com.cjw.rxjavademo.widget.logRecyclerView.CommonTextRecyclerView
+    <com.cjw.rxjavademo.widget.logrecyclerview.CommonTextRecyclerView
         android:id="@+id/log_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

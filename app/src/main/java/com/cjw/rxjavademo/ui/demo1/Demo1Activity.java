@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.cjw.rxjavademo.R;
 import com.cjw.rxjavademo.ui.base.AppBarActivity;
-import com.cjw.rxjavademo.widget.logRecyclerView.CommonTextRecyclerView;
+import com.cjw.rxjavademo.widget.logrecyclerview.CommonTextRecyclerView;
 
 import java.util.Observable;
 import java.util.Observer;

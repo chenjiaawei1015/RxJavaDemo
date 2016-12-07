@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <com.cjw.rxjavademo.widget.logRecyclerView.CommonTextRecyclerView
+        <com.cjw.rxjavademo.widget.logrecyclerview.CommonTextRecyclerView
             android:id="@+id/operator_rv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -23,7 +23,7 @@
 
         <include layout="@layout/common_divider_vertical"/>
 
-        <com.cjw.rxjavademo.widget.logRecyclerView.CommonTextRecyclerView
+        <com.cjw.rxjavademo.widget.logrecyclerview.CommonTextRecyclerView
             android:id="@+id/log_rv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
