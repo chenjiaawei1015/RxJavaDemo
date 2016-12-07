@@ -59,7 +59,7 @@ public class Demo5Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("组合操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "combineLatest", "join");
+        Collections.addAll(operatorList, "combineLatest", "join", "merge");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -77,9 +77,37 @@ public class Demo5Activity extends AppBarActivity implements CommonTextRecyclerV
                 join();
                 break;
 
+            case 2:
+                merge();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void merge() {
+        // 参考 merge.png
+
+        Observable<Integer> o1 = Observable.just(1, 3, 5);
+        Observable<Integer> o2 = Observable.just(2, 4, 6);
+
+        Observable.merge(o1, o2)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        mLogRv.addText(String.valueOf(integer));
+                    }
+                });
+
+        // 输出结果:
+        // 1
+        // 3
+        // 5
+        // 2
+        // 4
+        // 6
     }
 
     private void join() {
