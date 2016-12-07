@@ -59,7 +59,7 @@ public class Demo5Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("组合操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "combineLatest", "join", "merge", "startWith", "switchOnNext");
+        Collections.addAll(operatorList, "combineLatest", "join", "merge", "startWith", "switchOnNext", "zip");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -89,9 +89,40 @@ public class Demo5Activity extends AppBarActivity implements CommonTextRecyclerV
                 switchOnNext();
                 break;
 
+            case 5:
+                zip();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void zip() {
+        // 参考 zip1.png 和 zip2.png
+
+        // 使用一个指定的函数将多个Observable发射的数据组合在一起
+        // 然后将这个函数的结果作为单项数据发射,严格周期顺序进行合并,不能单独发射
+        
+        Observable<String> observable1 = Observable.just("a1", "a2", "a3");
+        Observable<String> observable2 = Observable.just("b1", "b2", "b3", "a4");
+        Observable.zip(observable1, observable2, new Func2<String, String, String>() {
+            @Override
+            public String call(String s, String s2) {
+                return s + " , " + s2;
+            }
+        }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        Log.d(TAG, "call: " + s);
+                        mLogRv.addText(s);
+                    }
+                });
+
+        // call: a1 , b1
+        // call: a2 , b2
+        // call: a3 , b3
     }
 
     private void switchOnNext() {

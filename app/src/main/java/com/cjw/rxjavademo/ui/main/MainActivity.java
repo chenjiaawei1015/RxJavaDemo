@@ -81,38 +81,6 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
         mMainRv.setAdapter(adapter);
     }
 
-    //    /**
-    //     * 组合操作符
-    //     */
-    //    class OperatorCombination {
-    //
-    //        public void zip() {
-    //            // zip
-    //            // 使用一个指定的函数将多个Observable发射的数据组合在一起
-    //            // 然后将这个函数的结果作为单项数据发射,严格周期顺序进行合并,不能单独发射
-    //            // 注意:
-    //            // 只有每个observable都生成一个数据时,才会统一发射一次
-    //            // 当不满足所有observable都有数据可产品时,不再发射数据
-    //
-    //            Observable<String> observable1 = Observable.just("a1", "a2", "a3");
-    //            Observable<String> observable2 = Observable.just("b1", "b2", "b3", "a4");
-    //            Observable.zip(observable1, observable2, new Func2<String, String, String>() {
-    //                @Override
-    //                public String call(String s, String s2) {
-    //                    return s + " , " + s2;
-    //                }
-    //            }).subscribe(new Action1<String>() {
-    //                @Override
-    //                public void call(String s) {
-    //                    Log.d(TAG, "call: " + s);
-    //                }
-    //            });
-    //
-    //            // call: a1 , b1
-    //            // call: a2 , b2
-    //            // call: a3 , b3
-    //        }
-    //
     //    class OperatorCreate {
     //
     //        public void observerOn() {
