@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.cjw.rxjavademo"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.cjw.rxjavademo">
 
     <application
         android:allowBackup="true"
@@ -22,6 +22,8 @@
         <activity android:name=".ui.demo5.Demo5Activity">
         </activity>
         <activity android:name=".ui.demo6.Demo6Activity">
+        </activity>
+        <activity android:name=".ui.demo7.Demo7Activity">
         </activity>
     </application>
 

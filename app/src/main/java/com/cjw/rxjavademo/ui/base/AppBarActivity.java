@@ -17,7 +17,7 @@ import com.cjw.rxjavademo.R;
 public class AppBarActivity extends AppCompatActivity {
 
     protected final String TAG = getClass().getSimpleName();
-    
+
     protected Toolbar mToolbar;
     protected TextView mTitleTv;
     protected Context mContext;
@@ -50,6 +50,10 @@ public class AppBarActivity extends AppCompatActivity {
     protected void findWidget() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitleTv = (TextView) findViewById(R.id.title_tv);
+    }
+
+    protected void setListener() {
+
     }
 
     @Override

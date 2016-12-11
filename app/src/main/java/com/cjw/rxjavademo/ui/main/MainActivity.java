@@ -11,6 +11,7 @@ import com.cjw.rxjavademo.ui.demo3.Demo3Activity;
 import com.cjw.rxjavademo.ui.demo4.Demo4Activity;
 import com.cjw.rxjavademo.ui.demo5.Demo5Activity;
 import com.cjw.rxjavademo.ui.demo6.Demo6Activity;
+import com.cjw.rxjavademo.ui.demo7.Demo7Activity;
 import com.cjw.rxjavademo.ui.main.adapter.MainAdapter;
 import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 
@@ -57,6 +58,10 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
                 Demo6Activity.navigateTo(mContext);
                 break;
 
+            case 6: // 效用操作符
+                Demo7Activity.navigateTo(mContext);
+                break;
+
             default:
                 break;
         }
@@ -81,6 +86,7 @@ public class MainActivity extends AppBarActivity implements MainAdapter.OnItemCl
         List<String> titleList = new ArrayList<>();
         Collections.addAll(titleList, "简单的观察者设计模式", "创建操作符", "转换类操作符");
         Collections.addAll(titleList, "筛选操作符", "组合操作符", "错误处理操作符");
+        Collections.addAll(titleList, "效用操作符");
         MainAdapter adapter = new MainAdapter(mContext, titleList);
         adapter.setItemClickListener(this);
         mMainRv.setAdapter(adapter);
