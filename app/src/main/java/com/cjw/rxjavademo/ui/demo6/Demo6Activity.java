@@ -54,7 +54,7 @@ public class Demo6Activity extends AppBarActivity implements CommonTextRecyclerV
         mTitleTv.setText("错误处理操作符");
 
         List<String> operatorList = new ArrayList<>();
-        Collections.addAll(operatorList, "onErrorReturn", "onErrorResumeNext");
+        Collections.addAll(operatorList, "onErrorReturn", "onErrorResumeNext", "onExceptionResumeNext");
 
         mOperatorRv.addNewTextList(operatorList);
         mOperatorRv.setOnTextItemClickListener(this);
@@ -62,6 +62,7 @@ public class Demo6Activity extends AppBarActivity implements CommonTextRecyclerV
 
     @Override
     public void onTextItemClick(UltimateRecyclerView rv, int position) {
+        mLogRv.clearTextList();
         switch (position) {
             case 0:
                 onErrorReturn();
@@ -70,7 +71,41 @@ public class Demo6Activity extends AppBarActivity implements CommonTextRecyclerV
             case 1:
                 onErrorResumeNext();
                 break;
+
+            case 2:
+                onExceptionResumeNext();
+                break;
         }
+    }
+
+    private void onExceptionResumeNext() {
+        // 参看 onexceptionresumenext.png
+        Observable<Integer> o1 = Observable.just(-100);
+
+        Observable.create(new Observable.OnSubscribe<Integer>() {
+            @Override
+            public void call(Subscriber<? super Integer> subscriber) {
+                for (int i = 0; i < arr.length; i++) {
+                    if (i == 3) {
+                        subscriber.onError(new Exception("error"));
+                    } else {
+                        subscriber.onNext(arr[i]);
+                    }
+                }
+            }
+        }).onExceptionResumeNext(o1)
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        mLogRv.addText(String.valueOf(integer));
+                    }
+                });
+
+        // 输出结果:
+        // 1
+        // 2
+        // 3
+        // -100
     }
 
     private void onErrorResumeNext() {
